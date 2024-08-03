@@ -1,8 +1,5 @@
 /* first javascript*/
 
-const validChoice = ['rock', 'paper', 'scissors'];
-const humanScore = 0;
-const computerScore = 0;
 
 function getComputerChoice() {
     let ccIndex = Math.floor(Math.random()*validChoice.length);
@@ -21,12 +18,33 @@ function getHumanChoice() {
     }
 }
 
-function playRound(humanChoice, computerChoice) {
-
+function playRound(humanChoice, computerChoice, humanScore, computerScore) {
+    if (humanChoice==computerChoice) {
+        console.log("it's a tie!");
+    } else if ((humanChoice=='rock' && computerChoice =='scissors') ||
+    (humanChoice=='scissors' && computerChoice =='paper') ||
+    (humanChoice=='paper' && computerChoice =='rock')) {
+        console.log("you won!")
+        humanScore++;
+    } else {
+        console.log("you loss!")
+        computerScore++;
+    }
+    return [humanScore, computerScore];
 }
 
+const validChoice = ['rock', 'paper', 'scissors'];
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+    for (let i = 0; i<5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        [humanScore, computerScore] = playRound(humanSelection, computerSelection, humanScore, computerScore);
+        console.log(`computer score ${computerScore}`)
+        console.log(`human score is ${humanScore}`)
+    }
+}
 
-playRound(humanSelection, computerSelection);
+playGame()
